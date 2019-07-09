@@ -1,0 +1,64 @@
+apply plugin: 'java-library'
+apply plugin: 'war'
+apply plugin: 'com.bmuschko.tomcat'
+apply plugin: 'eclipse-wtp'
+
+buildscript {
+    repositories {
+        jcenter()
+		maven {
+            url "https://maven.google.com"
+        }
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.4.1'
+    }
+}
+
+repositories {
+	mavenCentral()
+	maven {
+            url "https://maven.google.com"
+        }
+}
+
+
+dependencies {
+    
+    	def tomcatVersion = '8.5.16'
+    	def springWebMvcVersion = '5.1.5.RELEASE'
+    
+    	tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+           "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+           "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+    
+		providedCompile 'javax.servlet:javax.servlet-api:4.0.0'
+		compile 'javax.servlet:jstl:1.2'
+		compile 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.2-b02'
+		compile "org.springframework:spring-webmvc:${springWebMvcVersion}"
+		compile "org.springframework:spring-test:${springWebMvcVersion}"
+		
+		compile group: 'com.sun.jersey', name: 'jersey-server', version: '1.19.4'
+		compile group: 'com.sun.jersey', name: 'jersey-client', version: '1.19.4'
+	    compile group: 'com.sun.jersey', name: 'jersey-servlet', version: '1.19.4'
+	    compile group: 'com.sun.jersey.contribs', name: 'jersey-multipart', version: '1.19.4'
+		compile group: 'com.sun.jersey', name: 'jersey-json', version: '1.19.4'
+		compile group: 'com.sun.jersey.contribs', name: 'jersey-spring', version: '1.19.4'
+		compile group: 'org.jvnet.jax-ws-commons.spring', name: 'jaxws-spring', version: '1.9'
+		compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.39'
+		compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '1.11.5.RELEASE'
+		compile group: 'org.springframework', name: 'spring-orm', version: '5.1.5.RELEASE'
+    	compile group: 'org.springframework', name: 'spring-webmvc', version: '5.1.5.RELEASE'
+    	compile group: 'org.springframework', name: 'spring-jdbc', version: '5.1.5.RELEASE'
+		compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.10.Final'
+
+    	testImplementation 'junit:junit:4.12'
+}
+
+tomcat {
+
+	httpPort = 8080
+	enableSSL = true
+	contextPath = '/Spring-test'
+}
